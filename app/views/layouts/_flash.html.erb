@@ -1,10 +1,16 @@
 <% flash.each do |type, msg| %>
-  <div class="alert <%= bootstrap_class_for_flash(type) %> alert-dismissable fade show mb-0" role="alert">
-    <%= msg %>
+  <div class="alert <%= bootstrap_class_for_flash(type) %> alert-dismissable fade show d-flex justify-content-between mb-0" role="alert">
+    <% if msg.is_a?(Hash) %>
+      <ul class="mb-0">
+        <% msg.values.each do |error| %>
+          <li><%= error.last %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= msg %>
+    <% end %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">×</span>
     </button>
   </div>
 <% end %>
-
-

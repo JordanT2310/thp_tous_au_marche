@@ -31,13 +31,11 @@ class UsersController < ApplicationController
     if avatar_user.nil? && first_name.nil?
       flash[:error] = 'Vous ne pouvez pas télécharger une image vide'
       redirect_to user_path(current_user.id)
-
     elsif @user.update(user_params)
       flash[:notice] = 'Vos informations ont été mises à jour !'
       redirect_to user_path(current_user.id)
-
     else
-      flash.now[:error] = @user.errors.full_messages.to_sentence
+      flash.now[:error] = @user.errors.messages
       render :edit
     end
   end
