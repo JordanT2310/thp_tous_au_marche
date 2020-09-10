@@ -1,20 +1,19 @@
 <div class="container">
-
-  <div class="card mb-4 my-5" style="border-top: 15px solid black;">
+  <div class="card mt-5" style="border-top: 15px solid #A4D792;">
     <div class="card-body">
-      <h4 class="text-center">A bientôt sur Tous Au Marché</h4>
-      <p class="text-muted text-center">Nous espérons vous revoir bientôt parmi nous !</p>
-     
+      <h3 class="text-center">À bientôt chez <span style="font-weight: 700; font-size: 30px;"><span style="color: green;">Tous</span><span style="color: #A4D792;">au</span><span style="color: #ff9900;">marché</span></span></h3>
+      <p class="text-muted text-center">Nous espérons vous revoir parmi nous...</p>
     </div>
   </div>
 
-  <div class="card w-100 mb-4">
+  <div class="card w-100 mb-5">
     <div class="card-body">
-      <img width="50" height="50" class="mx-auto" src="https://image.flaticon.com/icons/png/512/725/725030.png" alt="logo coeur brise"><br>
-      <h4 class="text-center">Vous vous êtes désinscrit(e) de votre compte Consommateur</h4>
-      <p class="text-muted text-center">Votre email : <%= @user.email %></p>
-      <p class="text-center">Les informations associées à ce compte consommateur ont bien été supprimé.</p>
+      <div class="text-center m-2">
+        <%= image_tag('mailer/brocolis.png', size: "64x64", alt: "sad brocolis") %>
+      </div>
+      <h4 class="text-center mb-3">Vous êtes désinscrit·e en tant que consommateur·trice ☹</h4>
+      <p class="text-center mb-3">Votre compte et ses informations ont bien été supprimés</p>
+      <a class="btn btn-success mx-auto mt-2" href="https://allons-tous-au-marche.herokuapp.com/users/sign_up">Se réinscrire</a>
     </div>
   </div>
-
 </div>
