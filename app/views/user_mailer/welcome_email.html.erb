@@ -2,21 +2,20 @@
   <div class="card mt-5" style="border-top: 15px solid #A4D792;">
     <div class="card-body">
       <h3 class="text-center">Bienvenue chez <span style="font-weight: 700; font-size: 30px;"><span style="color: green;">Tous</span><span style="color: #A4D792;">au</span><span style="color: #ff9900;">marché</span></span></h3>
-      <p class="text-muted text-center">L'annuaire des producteurs près de chez vous <span class="ml-2"><span class="m-2"><%= image_tag('mailer/route.png', size: "50x50", alt: "route") %></span></span></p>
+      <p class="text-muted text-center">L'annuaire des producteurs près de chez vous %></span></p>
     </div>
   </div>
 
   <div class="card w-100 mb-5">
     <div class="card-body">
-      <div class="text-center">
+      <div class="text-center m-3">
         <span class="m-2"><%= image_tag('mailer/vegetables.png', size: "64x64", alt: 'happy vegetables') %></span>
         <span class="m-2"><%= image_tag('mailer/salad.png', size: "64x64", alt: 'happy salad') %></span>
         <span class="m-2"><%= image_tag('mailer/onion.png', size: "64x64", alt: 'happy onion') %></span>
       </div>
       <h4 class="text-center mb-3">Vous êtes dorénavant inscrit·e en tant que consommateur·trice ☺</h4>
-      <p class="text-center">Votre email : <%= @user.email %></p>
-      <p class="text-center mb-3">Découvrez vos producteurs locaux et ajoutez les en favoris !</p>
-      <a class="btn btn-success mx-auto mt-2" href="https://allons-tous-au-marche.herokuapp.com/">Chercher des producteurs locaux</a>
+      <p class="text-center mb-3">Votre email : <%= @user.email %></p>
+      <a class="btn btn-success mx-auto" href="<%= @url %>">Chercher des producteurs locaux</a>
     </div>
   </div>
 </div>

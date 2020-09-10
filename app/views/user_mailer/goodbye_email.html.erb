@@ -8,12 +8,12 @@
 
   <div class="card w-100 mb-5">
     <div class="card-body">
-      <div class="text-center m-2">
+      <div class="text-center m-3">
         <%= image_tag('mailer/brocolis.png', size: "64x64", alt: "sad brocolis") %>
       </div>
-      <h4 class="text-center mb-3">Vous êtes désinscrit·e en tant que consommateur·trice ☹</h4>
+      <h5 class="text-center mb-3">Vous êtes désinscrit·e en tant que consommateur·trice ☹</h5>
       <p class="text-center mb-3">Votre compte et ses informations ont bien été supprimés</p>
-      <a class="btn btn-success mx-auto mt-2" href="https://allons-tous-au-marche.herokuapp.com/users/sign_up">Se réinscrire</a>
+      <a class="btn btn-success mx-auto mt-2" href="<%= @url %>">Se réinscrire</a>
     </div>
   </div>
 </div>
