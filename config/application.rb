@@ -18,7 +18,6 @@ module TousAuMarche
 
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
     config.i18n.default_locale = :fr
-    config.action_controller.asset_host = 'http://allons-tous-au-marche.herokuapp.com'
     config.action_mailer.asset_host = 'http://allons-tous-au-marche.herokuapp.com'
   end
 end
