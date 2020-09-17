@@ -1,3 +1,16 @@
-<h3><%= @contact.subject %></h3>
-<p>Message from <%= @contact.email %></p>
-<p>Content: <%= @contact.message %></p>
+<div class="container">
+  <div class="card mt-5" style="border-top: 15px solid #A4D792;">
+    <div class="card-body">
+      <h3 class="text-center">Bienvenue chez <span style="font-weight: 700; font-size: 30px;"><span style="color: green;">Tous</span><span style="color: #A4D792;">au</span><span style="color: #ff9900;">marché</span></span></h3>
+      <p class="text-muted text-center">L'annuaire des producteurs près de chez vous</p>
+    </div>
+  </div>
+
+  <div class="card w-100 mb-5">
+    <div class="card-body">
+      <h4 class="text-center mb-3"><%= @contact.subject %></h4>
+      <h5 class="text-center mb-3">De la part de : <%= @contact.email %></h5>
+      <p><%= @contact.message %></p>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,7 @@
     <% if msg.is_a?(Hash) %>
       <ul class="mb-0">
         <% msg.values.each do |error| %>
+          <% next if error.last == nil %>
           <li><%= error.last %></li>
         <% end %>
       </ul>
