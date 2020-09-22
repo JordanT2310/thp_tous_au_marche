@@ -1,6 +1,6 @@
 /* --------------- MAIN TAGS --------------- */
 
-html,
+html,s
 body {
   height: 100%;
   position: relative;
@@ -79,7 +79,7 @@ footer a .fa-arrow-up {
   color: #ff9900;
 }
 
-/* Custom CSS for Show pages */
+/* --------------- SHOW PAGES --------------- */
 
 .checked {
     color: yellow;
@@ -235,10 +235,16 @@ hr.style-one {
 }
 
 
-/* Custom CSS for FORM */
+/* --------------- FORMS --------------- */
 
 input[class*='form-control'] {
     height: 40px;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #A4D792;
+  border-color: #A4D792;
+  background-color: #A4D792;
 }
 
 .form-control,
@@ -269,10 +275,30 @@ list-group-item {
 
 .custom-file-input ~ .custom-file-label::after {
     content: "Chercher";
+    height: 100%;
 }
 
 
-/* --------------- Custom CSS for the HOME PAGE --------------- */
+#information-editing .btn, .show-form {
+  font-size: 1rem;
+}
+
+.show-form .custom-file-label {
+  height: 40px;
+}
+
+@media screen and (max-width: 992px) {
+  .show-form .btn {
+    font-size: 12px;
+  }
+
+  .show-form .custom-file-label {
+    font-size: 15px;
+    height: 100%;
+  }
+}
+
+/* --------------- HOME PAGE --------------- */
 
 
 .home-image {

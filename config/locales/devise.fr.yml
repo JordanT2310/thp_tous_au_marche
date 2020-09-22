@@ -71,6 +71,7 @@ fr:
             email:
               blank: "L'email doit être rempli"
               confirmation: "L'email doit être au format 'abc@abc.com'"
+              taken: "Cette adresse email est déjà utilisée. Veuillez en choisir une autre."
             password:
               blank: "Le mot de passe doit être rempli"
               too_short: "Le mot de passe doit inclure au moins 6 caractères"
@@ -81,6 +82,7 @@ fr:
             email:
               blank: "L'email doit être rempli"
               confirmation: "L'email doit être au format 'abc@abc.com'"
+              taken: "Cette adresse email est déjà utilisée. Veuillez en choisir une autre."
             password:
               blank: "Le mot de passe doit être rempli"
               too_short: "Le mot de passe doit inclure au moins 6 caractères"
