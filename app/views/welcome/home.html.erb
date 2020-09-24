@@ -4,13 +4,13 @@
 	<div class="home-image" style="background-image: url(<%= asset_path('homepage/field.jpg') %>);"></div>
 	<div class="container">
 		<div class="text-wrap">
-			<div class="text-inner" style ="top: 200px; left: 0px;">
-				<div class="row justify-content-center">
-					<div class="col-md-8 col-md-offset-2 to-animate">
+			<div class="text-inner" style ="top: 200px;">
+				<div class="d-flex flex-column justify-content-center">
+					<div class="to-animate">
 						<h1 class="to-animate" style="text-shadow: 2px 2px 4px #000; font-size: 60px;">Tout commence là.</h1>
 						<h2 class="to-animate pb-5" style="text-shadow: 0 0 3px #A4D792; font-size: 35px;"><b>L'annuaire en ligne de vos producteurs locaux</b></h2>
 					</div>
-					<div class="col-md-8 col-md-offset-2 to-animate mt-3">
+					<div class="to-animate mt-3">
 						<%= link_to "Voir la carte", producers_path(@producer), :class => 'in btn btn-lg btn-jumbotron' %>
 					</div>
 				</div>

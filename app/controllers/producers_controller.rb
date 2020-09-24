@@ -43,13 +43,11 @@ class ProducersController < ApplicationController
     if avatar.nil? && images.nil? && first_name.nil?
       flash[:error] = 'Vous ne pouvez pas télécharger une image vide'
       redirect_to producer_path(current_producer.id)
-
     elsif @producer.update(producer_params)
       flash[:notice] = 'Vos informations ont été mises à jour !'
       redirect_to producer_path(current_producer.id)
-
     else
-      flash.now[:error] = @producer.errors.full_messages.to_sentence
+      flash.now[:error] = @producer.errors.messages
       render :edit
     end
   end

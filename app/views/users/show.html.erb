@@ -1,7 +1,7 @@
-<section id="fh5co-home" data-section='profile-user' style="background: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;) fixed; background-position: 0px 0px; height: 230px;" data-stellar-background-ratio="0.5">
+<section id="fh5co-home" data-section='profile-user' style="background: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;) 0px 0px / cover; background-attachment: fixed; height: 230px;" data-stellar-background-ratio="0.5">
   <div class="text-inner">
     <div class="row text-center">
-      <div class="col-md-8 col-md-offset-2">
+      <div class="col-md-8 offset-md-2">
         <h1 class="to-animate">
           <% if !@user.first_name.nil? || !@user.last_name.nil? %>
             <%= @user.first_name.capitalize %> <%= @user.last_name.upcase %>
@@ -42,7 +42,7 @@
 
       <div class="col-md-6">
         <div class="fh5co-contact-info to-animate mx-3 mt-3" id='user-producer-information'>
-          <table class="table table-borderless text-white text-left my-2">
+          <table class="table table-borderless table-responsive text-white text-left my-2">
             <tbody>
               <tr>
                 <td scope="col" style="width: 30%; overflow: hidden;"><i class="fas fa-address-card ml-2"></i></td>
