@@ -26,7 +26,9 @@ class User < ApplicationRecord
   private
 
   def phone_number_nil?
-    phone_number != nil
+    if phone_number != nil && phone_number != ""
+      true
+    end
   end
 
   def names_nil?

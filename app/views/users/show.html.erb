@@ -1,13 +1,12 @@
-<section id="fh5co-home" data-section='profile-user' style="background-image: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;); background-position: 0px 0px; height: 200px;" data-stellar-background-ratio="0.5">
-  <div class="gradient"></div>
-  <div class="container">
-    <div class="text-wrap" style="height: 180px;">
-      <div class="text-inner">
-        <div class="row text-center">
-          <div class="col-md-8 col-md-offset-2">
-            <h1 class="to-animate">Mon profil</h1>
-          </div>
-        </div>
+<section id="fh5co-home" data-section='profile-user' style="background: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;) 0px 0px / cover; background-attachment: fixed; height: 230px;" data-stellar-background-ratio="0.5">
+  <div class="text-inner">
+    <div class="row text-center">
+      <div class="col-md-8 offset-md-2">
+        <h1 class="to-animate">
+          <% if !@user.first_name.nil? || !@user.last_name.nil? %>
+            <%= @user.first_name.capitalize %> <%= @user.last_name.upcase %>
+          <% end %>
+        </h1>
       </div>
     </div>
   </div>
@@ -17,37 +16,23 @@
 <section id="fh5co-work" class='pt-5'>
   <div class='container'>
 
-    <section id="information-editing" class='mt-5'>
-      <% if user_signed_in? %>
-        <div class="row my-3">
-          <div class="col-md-6">
-            <%= link_to "Modifier mes identifiants", edit_user_registration_path, class: "btn btn-primary btn-lg my-2" %>
-          </div>
-          <div class="col-md-5 text-center px-0 mx-3">
-            <%= link_to "Modifier mes informations", edit_user_path(current_user), class: "btn btn-primary btn-lg w-100 my-2" %>
-          </div>
-        </div>
-      <% end %>
-    </section>
-
-
-    <div class="row">
-      <div class="col-md-6 text-center to-animate h-100 align-self-center mt-3" style='max-height: 400px;'>
+    <div class="row mt-5">
+      <div class="col-md-5 d-flex flex-column justify-content-around align-items-center text-center to-animate py-3" style='height: 302px;'>
         <% if @user.avatar_user.attached? %>
-          <%= link_to image_tag(@user.avatar_user, alt: 'avatar_user', class:'img-responsive avatar to-animate'), @user.avatar_user, class:'fh5co-project-item image-popup to-animate' %>
+          <div class="rounded-circle" style="height: 200px; width: 200px; background: center / cover url('<%= polymorphic_url(@user.avatar_user) %>'); border: solid 3px #A9ADB0;"></div>
         <% else %>
-          <p class='font-italic box-avatar'>Il n'y a pas encore d'avatar lié à cet utilisateur</p>
+          <div class="rounded-circle" style="height: 200px; width: 200px; background: url('<%= asset_path("no_avatar.png") %>'); background-position: 50% 20%; background-size: 80%; border: solid 2px #A9ADB0;"></div>
         <% end %>
         <% if user_signed_in? %>
-          <div class='text-left mb-3'>
-          <%= form_with model: @user, local: true do |form| %>
+          <div class='show-form text-left mx-3'>
+            <%= form_with model: @user, local: true do |form| %>
               <div class='input-group'>
                 <div class="input-group-prepend">
                   <%= form.submit "Ajouter", class:'btn btn-primary' %>
                 </div>
                 <div class="custom-file">
-                  <%= form.file_field :avatar_user, id: 'avatar_user', accept: 'image/png,image/jpeg,image/gif', class:'custom-file-input' %>
-                  <%= form.label :avatar_user, "Sélectionner une image...", class:'custom-file-label' %>
+                  <%= form.file_field :avatar_user, id: 'avatar_user', accept: 'image/png, image/jpeg, image/gif', class:'custom-file-input' %>
+                  <%= form.label :avatar_user, "Choisir", class: 'custom-file-label' %>
                 </div>
               </div>
             <% end %>
@@ -55,35 +40,42 @@
         <% end %>
       </div>
 
-      <div class="col-md-5 fh5co-contact-info to-animate h-100 mx-3 mt-3" id='user-producer-information'>
-        <table class="table table-borderless text-white text-left my-2">
-          <tbody>
-            <tr>
-              <td scope="col" style="width: 30%; overflow: hidden;"><i class="fas fa-address-card"></i></td>
-              <td scope="col" style="width: 70%; overflow: hidden;">
-                <% if @user.first_name.nil? || @user.last_name.nil? %>
-                  <em>Non enregistré</em>
-                <% else %>
-                  <%= @user.first_name.capitalize %> <%= @user.last_name.upcase %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-phone-alt"></i></td>
-              <td>
-                <% if @user.phone_number.nil? %>
-                  <span class='font-italic'>Non enregistré</span>
-                <% else %>
-                  <%= @user.phone_number %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-at"></i></td>
-              <td><a href="mailto:<%= @user.email%>"><%= @user.email%></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-md-6">
+        <div class="fh5co-contact-info to-animate mx-3 mt-3" id='user-producer-information'>
+          <table class="table table-borderless table-responsive text-white text-left my-2">
+            <tbody>
+              <tr>
+                <td scope="col" style="width: 30%; overflow: hidden;"><i class="fas fa-address-card ml-2"></i></td>
+                <td scope="col" style="width: 70%; overflow: hidden;">
+                  <% if @user.first_name.nil? || @user.last_name.nil? %>
+                    <em>Non enregistré</em>
+                  <% else %>
+                    <%= @user.first_name.capitalize %> <%= @user.last_name.upcase %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-phone-alt ml-2"></i></td>
+                <td>
+                  <% if @user.phone_number.nil? || @user.phone_number == "" %>
+                    <span class='font-italic'>Non enregistré</span>
+                  <% else %>
+                    <%= @user.phone_number %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-at ml-2"></i></td>
+                <td><a href="mailto:<%= @user.email%>"><%= @user.email%></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="information-editing" class="mx-3 mt-3">
+          <%= link_to "Modifier mes identifiants", edit_user_registration_path, class: "btn btn-primary btn-lg w-100 my-2" %>
+          <%= link_to "Éditer mes informations", edit_user_path(current_user), class: "btn btn-primary btn-lg w-100 my-2" %>
+        </div>
       </div>
     </div>
 
@@ -100,8 +92,8 @@
               <th scope="col" style="width: 20%; overflow: hidden;">Prénom</th>
               <th scope="col" style="width: 20%; overflow: hidden;">Téléphone</th>
               <th scope="col" style="width: 20%; overflow: hidden;">Email</th>
-              <th scope="col" style="width: 10%; overflow: hidden;">Profil</th>
-              <th scope="col" style="width: 10%; overflow: hidden;">Retirer</th>
+              <th scope="col" style="width: 20%; overflow: hidden;">Profil</th>
+              <th scope="col" style="width: 20%; overflow: hidden;">Retirer</th>
             </tr>
           </thead>
           <tbody>

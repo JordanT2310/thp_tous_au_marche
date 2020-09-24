@@ -1,18 +1,16 @@
-<section id="fh5co-home" data-section='profile-producer' style="background-image: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;); background-position: 0px 0px; height: 200px;" data-stellar-background-ratio="0.5">
-  <div class="gradient"></div>
-  <div class="container">
-    <div class="text-wrap" style="height: 180px;">
-      <div class="text-inner">
-        <div class="row text-center">
-          <div class="col-md-8 col-md-offset-2">
-            <h1 class="to-animate">
-              <% if @producer.first_name.nil? || @producer.last_name.nil? %>
-                <% else %>
-                  <%= @producer.first_name.capitalize %> <%= @producer.last_name.upcase %>
-                <% end %>
-            </h1>
-          </div>
-        </div>
+<% if current_producer == @producer %>
+  <section id="fh5co-home" data-section='profile-producer' style="background: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;) 0px 0px / cover; background-attachment: fixed; height: 230px;" data-stellar-background-ratio="0.5">
+<% else %>
+  <section id="fh5co-home" style="background: url(&quot; https://cdn.pixabay.com/photo/2019/06/16/19/10/wheat-4278543_1280.jpg &quot;)  0px 0px / cover; background-attachment: fixed; height: 230px;" data-stellar-background-ratio="0.5">
+<% end %>
+  <div class="text-inner">
+    <div class="row text-center">
+      <div class="col-md-8 offset-md-2">
+        <h1 class="to-animate">
+          <% if !@producer.first_name.nil? || !@producer.last_name.nil? %>
+            <%= @producer.first_name.capitalize %> <%= @producer.last_name.upcase %>
+          <% end %>
+        </h1>
       </div>
     </div>
   </div>
@@ -22,20 +20,7 @@
 <section id="fh5co-work" class='pt-5'>
   <div class="container">
 
-    <section id="information-editing" class='mt-5'>
-      <% if producer_signed_in? && current_producer == @producer %>
-        <div class="row my-3">
-          <div class="col-md-6">
-            <%= link_to "Modifier mes identifiants", edit_producer_registration_path, class: "btn btn-primary btn-lg my-2" %>
-          </div>
-          <div class="col-md-5 text-center px-0 mx-3">
-            <%= link_to "Modifier mes informations", edit_producer_path(current_producer), class: "btn btn-primary btn-lg w-100 my-2" %>
-          </div>
-        </div>
-      <% end %>
-    </section>
-
-    <div class="row py-4" >
+    <div class="row pt-5" >
       <div id="follow" class="col-md-6">
         <% if current_producer == @producer %>
           <div><i class="fa fa-code-fork"></i> Vous êtes suivi par <%= @producer.favorited_by.count %> utilisateur(s)</div>
@@ -43,47 +28,44 @@
           <div><i class="fa fa-code-fork"></i> Producteur suivi par <%= @producer.favorited_by.count %> utilisateur(s)</div>
         <% end %>
       </div>
-      <div id="stars" class="col-md-5 text-right px-0 mx-3">
+      <div id="stars" class="col-md-5 px-0 mx-3">
         <% if @producer.rating == nil %>
           <span>Non noté</span>
           <% 5.times do %>
-            <i class='fa fa-star align-middle'></i>
+            <i class='fa fa-star'></i>
           <% end %>
         <% else %>
           <strong><%= @producer.rating.round(1) %></strong>
           <% number_star = @producer.rating.truncate %>
           <% number_star.times do %>
-            <i class='fa fa-star align-middle checked'></i>
+            <i class='fa fa-star checked'></i>
           <% end %>
           <% (5 - number_star).times do %>
-            <i class='fa fa-star align-middle'></i>
+            <i class='fa fa-star'></i>
           <% end %>
         <% end %>
       </div>
     </div>
 
     <!-- Avatars and description -->
-    <div class="row">
-      <div class="col-md-6 text-center h-100 align-self-center mt-3" style='max-height: 500px;'>
+    <div class="row mt-3">
+
+      <div class="col-md-5 d-flex flex-column justify-content-around align-items-center text-center to-animate py-3" style='height: 382px;'>
         <% if @producer.avatar.attached? %>
-          <%= link_to image_tag(@producer.avatar, alt: 'avatar', class:'img-responsive avatar to-animate'), @producer.avatar, class:'fh5co-project-item image-popup to-animate' %>
+          <div class="rounded-circle" style="height: 200px; width: 200px; background: center / cover url('<%= polymorphic_url(@producer.avatar) %>'); border: solid 3px #A9ADB0;"></div>
         <% else %>
-          <% if current_producer == @producer %>
-            <p class='font-italic box-avatar to-animate'>Vous n'avez pas encore ajouté d'avatar à votre profil</p>
-          <% else %>
-            <p class='font-italic box-avatar to-animate'>Il n'y a pas encore d'avatar lié à ce producteur</p>
-          <% end %>
+          <div class="rounded-circle" style="height: 200px; width: 200px; background: url('<%= asset_path("no_avatar.png") %>'); background-position: 50% 20%; background-size: 80%; border: solid 2px #A9ADB0;"></div>
         <% end %>
         <% if producer_signed_in? %>
-          <div class='text-left mb-3'>
+          <div class='show-form text-left mx-3'>
             <%= form_with model: @producer, local: true do |form| %>
               <div class='input-group'>
                 <div class="input-group-prepend">
                   <%= form.submit "Ajouter", class:'btn btn-primary' %>
                 </div>
                 <div class="custom-file">
-                  <%= form.file_field :avatar, id: 'avatar_user', accept: 'image/png,image/jpeg,image/gif', class:'custom-file-input' %>
-                  <%= form.label :avatar, "Sélectionner une image...", class:'custom-file-label' %>
+                  <%= form.file_field :avatar, id: 'avatar_producer', accept: 'image/png, image/jpeg, image/gif', class:'custom-file-input' %>
+                  <%= form.label :avatar, "Choisir", class: 'custom-file-label' %>
                 </div>
               </div>
             <% end %>
@@ -91,60 +73,78 @@
         <% end %>
       </div>
 
+      <div class="col-md-6">
+        <div class="fh5co-contact-info to-animate mx-3 mt-3" id='user-producer-information'>
+          <table class="table table-borderless table-responsive text-white text-left my-2">
+            <tbody>
+              <tr>
+                <td scope="col" style="width: 30%; overflow: hidden;"><i class="fas fa-home ml-2"></i></td>
+                <td scope="col" style="width: 100%; overflow: hidden;">
+                  <% if @producer.city_name.nil? || @producer.city_name == "" %>
+                    <em>Non enregistrée</em>
+                  <% else %>
+                    <%= @producer.address %><br />
+                    <%= @producer.zip_code %> <%= @producer.city_name %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-phone-alt ml-2"></i></td>
+                <td>
+                  <% if @producer.phone_number.nil? || @producer.phone_number == "" %>
+                    <em>Non enregistrée</em>
+                  <% else %>
+                    <%= @producer.phone_number %>
+                  <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-at ml-2"></i></td>
+                <td><a href="mailto:<%= @producer.email%>"><%= @producer.email%></td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-globe ml-2"></i></td>
+                <% if @producer.website != "" && !@producer.website.nil? %>
+                  <td><%= link_to @producer.website, @producer.website %></td>
+                <% else %>
+                  <td><em>Non enregistrée</em></td>
+                <% end %>
+              </tr>
+              <tr>
+                <% if user_signed_in? %>
+                  <% if current_user && @favorited %>
+                    <td>
+                      <span style="color: red;"><i class="fas fa-heart ml-2"></i></span>
+                    </td>
+                    <td>
+                      <b><%= link_to "Retirer de mes favoris", favorite_producer_path(@producer, type: "unfavorite"), method: :put, :style => "text: bold;" %></b>
+                    </td>
+                  <% else %>
+                    <td><i class="fas fa-heart ml-2"></i></td>
+                    <td>
+                      <%= link_to "Ajouter à mes favoris", favorite_producer_path(@producer, type: "favorite"), class: "font-italic", method: :put %>
+                    </td>
+                  <% end %>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
 
-      <div class="col-md-5 fh5co-contact-info to-animate h-100 mx-3 mt-3" id='user-producer-information'>
-        <table class="table table-borderless text-white text-left my-2">
-          <tbody>
-            <tr>
-              <td scope="col" style="width: 30%; overflow: hidden;"><i class="fas fa-home"></i></td>
-              <td scope="col" style="width: 70%; overflow: hidden;">
-                <% if @producer.city_name.nil? %>
-                  <em>Pas d'adresse enregistrée</em>
-                <% else %>
-                  <%= @producer.address %><br />
-                  <%= @producer.zip_code %> <%= @producer.city_name %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-phone-alt"></i></td>
-              <td><%= @producer.phone_number %></td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-at"></i></td>
-              <td><a href="mailto:<%= @producer.email%>"><%= @producer.email%></td>
-            </tr>
-            <tr>
-              <td><i class="fas fa-globe"></i></td>
-              <% if @producer.website%>
-                <td><%= link_to @producer.website, @producer.website %></td>
-              <%end%>
-            </tr>
-            <tr>
-              <% if user_signed_in? %>
-                <% if current_user && @favorited %>
-                  <td>
-                    <span style="color: red;"><i class="fas fa-heart"></i></span>
-                  </td>
-                  <td>
-                    <b><%= link_to "Retirer de mes favoris", favorite_producer_path(@producer, type: "unfavorite"), method: :put, :style => "text: bold;" %></b>
-                  </td>
-                <% else %>
-                  <td><i class="fas fa-heart"></i></td>
-                  <td>
-                    <%= link_to "Ajouter à mes favoris", favorite_producer_path(@producer, type: "favorite"), class: "font-italic", method: :put %>
-                  </td>
-                <% end %>
-              <% end %>
-            </tr>
-          </tbody>
-        </table>
-        <% if @producer.description %>
-          <hr class='my-3 style-one'>
-          <blockquote>
-            <p class='mb-1'><%= @producer.description %></p>
-          </blockquote>
+          <% if @producer.description %>
+            <hr class='my-3 style-one'>
+            <blockquote>
+              <p class='mb-1 mx-3'><%= @producer.description %></p>
+            </blockquote>
+          <% end %>
+        </div>
+
+        <% if current_producer == @producer %>
+          <div id="information-editing" class="mx-3 mt-3">
+            <%= link_to "Modifier mes identifiants", edit_producer_registration_path, class: "btn btn-primary btn-lg w-100 my-2" %>
+            <%= link_to "Éditer mes informations", edit_producer_path(current_producer), class: "btn btn-primary btn-lg w-100 my-2" %>
+          </div>
         <% end %>
+
       </div>
     </div>
 
@@ -155,7 +155,7 @@
       <% if current_producer == @producer %>
         <h1>Vos images</h1>
       <% else %>
-        <h1>Images concernant ce producteur</h1>
+        <h1>Gallerie d'images</h1>
       <% end %>
     </div>
 
@@ -168,29 +168,29 @@
                 <span class="zoom-gallery">
                   <%= link_to image_tag(image, alt: 'avatar', class:'img-responsive pictures-gallery'), image %>
                 </span>
-                <%if producer_signed_in?%>
+                <% if producer_signed_in? %>
                   <%= link_to delete_image_attachment_producer_path(image.id), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer cette photo ?' } do %>
                     <i class="fas fa-trash-alt trash-red rounded-circle"></i>
-                  <%end%>
-                <%end%>
+                  <% end %>
+                <% end %>
               </div>
             <% end %>
         </div>
       <% else %>
         <!-- If there is no picture -->
         <% if current_producer == @producer %>
-          <p class='box-avatar text-center'>
+          <p class='text-center'>
             Vous n'avez pas encore ajouté d'image à votre profil
           </p>
         <% else %>
-          <p class='box-avatar text-center'>
+          <p class='text-center'>
             Il n'y a pas encore d'image pour ce producteur
           </p>
         <% end %>
       <% end %>
 
-      <% if producer_signed_in? %>
-        <div class='text-center mt-5'>
+      <% if current_producer == @producer %>
+        <div class='text-center show-image-form mt-5 mx-3'>
           <%= form_with model: @producer, local: true do |form| %>
             <div class='input-group'>
               <div class="input-group-prepend">
@@ -198,7 +198,7 @@
               </div>
               <div class="custom-file">
                 <%= form.file_field :images, multiple: true, id: 'avatar_user', accept: 'image/png,image/jpeg,image/gif', class:'custom-file-input' %>
-                <%= form.label :images, "Sélectionner une image...", class:'custom-file-label text-left' %>
+                <%= form.label :images, "Sélectionner", class:'custom-file-label text-left' %>
               </div>
             </div>
           <% end %>
@@ -281,7 +281,7 @@
       </section>
     <% end %>
 
-      <section id='comments' class='mt-5'>
+      <section id='comments' class='mt-5 pb-3'>
         <% if @producer.comments.count == 0 %>
           <% if current_producer == @producer %>
             <p class="text-center mb-0" style='font-size: 28px;'>
@@ -300,30 +300,30 @@
               <% @producer.comments.sort{ |x,y| y <=> x }.each do |comment| %>
 
                 <div class="list-group-item list-group-item-action d-flex justify-content-start align-items-center border-secondary px-0">
-                  <div class="col-4 col-sm-2 col-md-2 col-lg-1" style="min-width: 85px;">
+                  <div>
+                    <% if comment.user == current_user %>
+                      <%= link_to comment_path(comment.id, producer_id: @producer.id), method: :delete, data: { confirm: 'Êtes-vous sûr(e) de vouloir supprimer ce commentaire ?' } do %>
+                        <i class="fas fa-trash-alt trash-comment rounded-circle"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  <div class="col-3 col-sm-2 col-lg-1" style="min-width: 80px;">
                     <% if comment.user.avatar_user.attached? %>
                       <%= link_to image_tag(comment.user.avatar_user, alt: 'avatar_user', class:'img-responsive rounded-circle', width: '70px', height: '70px'), comment.user.avatar_user  %>
                     <% else %>
                       <%= image_tag("no_avatar.png", alt: 'avatar_user', class:'img-responsive rounded-circle', width: '70px', height: '70px') %>
                     <% end %>
                   </div>
-                  <div class="col-8 col-sm-10 col-md-10 col-lg-11 d-flex flex-column">
+                  <div class="col-9 col-sm-10 col-lg-11 d-flex flex-column">
                     <div class="d-flex justify-content-between">
                       <h5 class="mb-1"><%= comment.user.first_name %>, <%= comment.user.last_name.upcase %></h5>
-                      <small class="text-muted d-flex">
-                        <div class='align-self-center'>
-                          <% if comment.user == current_user %>
-                            <%= link_to comment_path(comment.id, producer_id: @producer.id), :method => :delete, :class => 'text-danger mr-3' do %>
-                              <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            <% end %>
-                          <% end %>
-                        </div>
+                      <small class="text-muted text-right ml-2">
                         <div >
                           <%= comment.created_at.in_time_zone("Paris").strftime("%d/%m/%y, à %H:%M") %>
                         </div>
                       </small>
                     </div>
-                    <p class="text-break mb-1 pr-4"><%= comment.content %></p>
+                    <p class="text-break mb-1 pr-3" style='font-size: 15px;'><%= comment.content %></p>
                   </div>
                 </div>
 

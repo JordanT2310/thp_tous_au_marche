@@ -29,7 +29,7 @@ class ProducersController < ApplicationController
     if @producer.destroy
       flash[:notice] = 'Vous avez supprimé votre compte producteur. À bientôt !'
       redirect_to root_url
-    else 
+    else
       flash[:error] = 'Une erreur est survenue, nous vous invitons à nous contacter directement.'
       redirect_to root_url
     end
@@ -43,13 +43,11 @@ class ProducersController < ApplicationController
     if avatar.nil? && images.nil? && first_name.nil?
       flash[:error] = 'Vous ne pouvez pas télécharger une image vide'
       redirect_to producer_path(current_producer.id)
-
     elsif @producer.update(producer_params)
       flash[:notice] = 'Vos informations ont été mises à jour !'
       redirect_to producer_path(current_producer.id)
-
     else
-      flash.now[:error] = @producer.errors.full_messages.to_sentence
+      flash.now[:error] = @producer.errors.messages
       render :edit
     end
   end
@@ -62,7 +60,7 @@ class ProducersController < ApplicationController
       current_user.favorites << @producer
       flash[:success] = "Vous avez ajouté #{@producer.first_name} #{@producer.last_name} à votre liste de producteurs favoris"
       redirect_to producer_path
-      
+
     elsif type == "unfavorite"
       current_user.favorites.delete(@producer)
       flash[:notice] = "Vous avez supprimé #{@producer.first_name} #{@producer.last_name} de votre liste de producteurs favoris"
@@ -77,7 +75,7 @@ class ProducersController < ApplicationController
       # Type missing, nothing happens
       flash[:error] = "Rien ne s\'est produit"
       redirect_to root_url
-      
+
     end
   end
 

@@ -409,10 +409,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #fh5co-home .text-inner {
-  /* display: table-cell;
-  vertical-align: middle; */
   position: absolute;
-  top: 200px;
+  top: 40px;
+  left: 0px;
   width: 100%;
   text-align: center;
 }
@@ -431,7 +430,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #fh5co-home .text-inner h1 {
-  font-size: 50px;
+  font-size: 42px;
   color: white;
   margin: 0 0 20px 0;
 }
