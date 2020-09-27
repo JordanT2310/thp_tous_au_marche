@@ -168,7 +168,7 @@
                 <span class="zoom-gallery">
                   <%= link_to image_tag(image, alt: 'avatar', class:'img-responsive pictures-gallery'), image %>
                 </span>
-                <% if producer_signed_in? %>
+                <% if current_producer == @producer %>
                   <%= link_to delete_image_attachment_producer_path(image.id), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer cette photo ?' } do %>
                     <i class="fas fa-trash-alt trash-red rounded-circle"></i>
                   <% end %>
