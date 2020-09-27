@@ -50,11 +50,11 @@
     <!-- Avatars and description -->
     <div class="row mt-3">
 
-      <div class="col-md-5 d-flex flex-column justify-content-around align-items-center text-center to-animate py-3" style='height: 382px;'>
+      <div class="col-md-5 d-flex flex-column justify-content-center align-items-center text-center to-animate py-3" style='max-height: 520px;'>
         <% if @producer.avatar.attached? %>
-          <div class="rounded-circle" style="height: 200px; width: 200px; background: center / cover url('<%= polymorphic_url(@producer.avatar) %>'); border: solid 3px #A9ADB0;"></div>
+          <div class="rounded-circle my-4" style="height: 200px; width: 200px; background: center / cover url('<%= polymorphic_url(@producer.avatar) %>'); border: solid 3px #A9ADB0;"></div>
         <% else %>
-          <div class="rounded-circle" style="height: 200px; width: 200px; background: url('<%= asset_path("no_avatar.png") %>'); background-position: 50% 20%; background-size: 80%; border: solid 2px #A9ADB0;"></div>
+          <div class="rounded-circle my-4" style="height: 200px; width: 200px; background: url('<%= asset_path("no_avatar.png") %>'); background-position: 50% 20%; background-size: 80%; border: solid 2px #A9ADB0;"></div>
         <% end %>
         <% if producer_signed_in? %>
           <div class='show-form text-left mx-3'>
@@ -73,8 +73,8 @@
         <% end %>
       </div>
 
-      <div class="col-md-6">
-        <div class="fh5co-contact-info to-animate mx-3 mt-3" id='user-producer-information'>
+      <div class="col-md-6 d-flex flex-column justify-content-around" style='max-height: 520px;'>
+        <div class="fh5co-contact-info to-animate m-3" id='user-producer-information'>
           <table class="table table-borderless table-responsive text-white text-left my-2">
             <tbody>
               <tr>
@@ -112,7 +112,7 @@
               </tr>
               <tr>
                 <% if user_signed_in? %>
-                  <% if current_user && @favorited %>
+                  <% if current_user && @favorited_by_current_user %>
                     <td>
                       <span style="color: red;"><i class="fas fa-heart ml-2"></i></span>
                     </td>
@@ -139,7 +139,7 @@
         </div>
 
         <% if current_producer == @producer %>
-          <div id="information-editing" class="mx-3 mt-3">
+          <div id="information-editing" class="mx-3">
             <%= link_to "Modifier mes identifiants", edit_producer_registration_path, class: "btn btn-primary btn-lg w-100 my-2" %>
             <%= link_to "Éditer mes informations", edit_producer_path(current_producer), class: "btn btn-primary btn-lg w-100 my-2" %>
           </div>
@@ -153,9 +153,9 @@
     <hr class='my-5 style-one'>
     <div class="pictures">
       <% if current_producer == @producer %>
-        <h1>Vos images</h1>
+        <h1 style='margin-bottom: 11.5px;'>Vos images</h1>
       <% else %>
-        <h1>Gallerie d'images</h1>
+        <h1 style='margin-bottom: 11.5px;'>Gallerie d'images</h1>
       <% end %>
     </div>
 
@@ -168,7 +168,7 @@
                 <span class="zoom-gallery">
                   <%= link_to image_tag(image, alt: 'avatar', class:'img-responsive pictures-gallery'), image %>
                 </span>
-                <% if producer_signed_in? %>
+                <% if current_producer == @producer %>
                   <%= link_to delete_image_attachment_producer_path(image.id), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer cette photo ?' } do %>
                     <i class="fas fa-trash-alt trash-red rounded-circle"></i>
                   <% end %>
@@ -211,7 +211,7 @@
     <% if current_producer == @producer && current_producer.favorited_by.count > 0 %>
       <!-- MY FAVORITE USERS -->
       <div class="container">
-        <div class="col text-center to-animate my-4">
+        <div class="text-center my-4">
           <h1 class="text-center text-white">Les utilisateurs qui me suivent !</h1>
         </div>
         <!--TABLE-->
@@ -252,10 +252,11 @@
           </div>
         </div>
       </div>
+      <hr class='my-5 style-one'>
     <% end %>
 
     <% if user_signed_in? %>
-      <section id='comment' class='mt-5'>
+      <section class='comment' class='mt-5'>
         <%= form_tag url_for(:controller => 'comments', :action => 'create') do %>
           <div class="form-group text-left mb-4">
             <%= label_tag "Commentaire" %><br />
@@ -281,15 +282,16 @@
       </section>
     <% end %>
 
-      <section id='comments' class='mt-5 pb-3'>
+      <section id='comments' class='mt-3 pb-3'>
+        <h1>Commentaires</h1>
         <% if @producer.comments.count == 0 %>
           <% if current_producer == @producer %>
-            <p class="text-center mb-0" style='font-size: 28px;'>
-              Il n'y a pas encore de commentaire vous concernant <i class="fa fa-smile-o fa-x3" aria-hidden="true"></i>
+            <p class="text-center mb-0">
+              Il n'y a pas encore de commentaire vous concernant
             </p>
           <% else %>
-            <p class="text-center mb-0" style='font-size: 28px;'>
-              Il n'y a pas encore de commentaire concernant ce producteur <i class="fa fa-smile-o fa-x3" aria-hidden="true"></i>
+            <p class="text-center mb-0">
+              Il n'y a pas encore de commentaire concernant ce producteur
             </p>
           <% end %>
 
