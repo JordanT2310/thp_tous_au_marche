@@ -1,6 +1,7 @@
 class ProducersController < ApplicationController
   before_action :authenticate_producer!, only: [:edit]
   before_action :deny_to_visitors, only: [:show, :edit]
+  before_action :disable_footer, only: [:index]
 
   def index
     @producer = Producer.all
@@ -93,27 +94,19 @@ class ProducersController < ApplicationController
   private
 
   def producer_params
-    params.require(:producer).permit(
-      :email,
-      :password,
-      :first_name,
-      :last_name,
-      :description,
-      :address,
-      :phone_number,
-      :website,
-      :city_name,
-      :zip_code,
-      :avatar,
-      images: [])
+    params.require(:producer).permit(:email, :password, :first_name, :last_name, :description, :address, :phone_number, :website,
+                                     :city_name, :zip_code, :avatar, images: [])
   end
 
   def deny_to_visitors
-    if  user_signed_in? || producer_signed_in?
-    else
+    unless  user_signed_in? || producer_signed_in?
       flash[:error] = 'Vous devez vous connecter !'
       redirect_to root_path
     end
+  end
+
+  def disable_footer
+    @disable_footer = true
   end
 
 end

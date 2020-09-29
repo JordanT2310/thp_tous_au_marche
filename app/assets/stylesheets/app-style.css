@@ -163,13 +163,13 @@ hr.style-one {
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #stars, #follow {
     text-align: center;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 767px) {
   #stars {
     text-align: right;
   }
@@ -273,59 +273,53 @@ list-group-item {
   min-height: 226px;
 }
 
-/* Custom CSS for indexproducers */
-
-.box-testimony {
-    padding-left: 20px;
-}
+/* --------------- MAP PAGE --------------- */
 
 .box-testimony blockquote {
-    padding-left: 0;
-    border-left: none;
-    padding: 30px;
-    background: #fff;
-    background: seagreen;
-    font-size: 20px;
-    font-weight: 300;
-    position: relative;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    -ms-border-radius: 7px;
-    border-radius: 7px;
+  padding-left: 0;
+  border-left: none;
+  padding: 20px;
+  background: #fff;
+  background: seagreen;
+  font-size: 20px;
+  font-weight: 300;
+  position: relative;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px;
 }
 
-.user_picture {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    padding: 10px;
-    float: left;
+.producer-picture {
+  width: 60px;
+  height: 60px;
 }
 
-.card-producer_index{
-    margin-bottom: 20px;
-    background: #d4facb;
-    border-radius: 7px;
-    border-width: 25em;
-    -webkit-box-shadow: 10px 11px 13px 1px rgba(0,0,0,0.3);
-    -moz-box-shadow: 10px 11px 13px 1px rgba(0,0,0,0.3);
-    box-shadow: 10px 11px 13px 1px rgba(0,0,0,0.3);
+.card-producer {
+  margin-bottom: 20px;
+  background: #d4facb;
+  border-radius: 7px;
+  border-width: 25em;
+  -webkit-box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.3);
 }
 
 #map {
-    height: 100vh;
-    position: fixed;
+  height: 100vh;
+  position: fixed;
 }
 
-/* Custom CSS for indexproducers no_sign_in */
+@media screen and (max-width: 767px) {
+  #map {
+    position: absolute;
+    top: 57px;
+    z-index: 0;
+    width: 100%;
+    height: 398px;
+ }
 
-.index_producers_background {
-    height: 100vh;
-    background-size: cover;
-    display: flex;
-}
-
-.hello {
-    margin: auto;
-    text-align: center;
+  .small-map-cards {
+    top: 425px;
+ }
 }
